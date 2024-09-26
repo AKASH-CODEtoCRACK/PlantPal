@@ -1,101 +1,67 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import ImageUpload from './components/ImageUplaod';
+import ImagePreview from './components/ImagePreview';
+import PlantInfo from './components/PlantInfo';
+import ExploreMore from './components/ExploreMore';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [plantData, setPlantData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleImageUpload = async (file) => {
+    setLoading(true);
+    setImagePreview(URL.createObjectURL(file));
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await fetch('/api/identify', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+      console.log('Received plant data:', data); // Log received plant data
+      setPlantData(data);
+    } catch (error) {
+      console.error('Error identifying plant:', error);
+      setPlantData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="bg-gradient-to-br from-light-green to-white py-12 px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto">
+        <h1 className="text-4xl font-bold text-center mb-4 text-dark-green">PLANT IDENTIFIER</h1>
+        <p className="text-center mb-8 text-gray-700">Upload a picture and we'll tell you what is the plant, tree, or flower</p>
+        <div className="max-w-4xl mx-auto">
+          <ImageUpload onImageUpload={handleImageUpload} />
+          {(imagePreview || loading || plantData) && (
+            <div className="mt-8 bg-white rounded-lg shadow-lg overflow-hidden">
+              {imagePreview && (
+                <div className="w-full h-64 relative">
+                  <img src={imagePreview} alt="Uploaded plant" className="w-full h-full object-cover" />
+                </div>
+              )}
+              <div className="p-6">
+                {loading ? (
+                  <div className="text-center">
+                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-dark-green"></div>
+                    <p className="mt-4 text-xl text-gray-700">Identifying plant...</p>
+                  </div>
+                ) : (
+                  plantData && <PlantInfo plantData={plantData} />
+                )}
+              </div>
+            </div>
+          )}
+          <ExploreMore />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
