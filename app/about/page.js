@@ -60,7 +60,7 @@ export default function About() {
           <h2 className="text-3xl font-semibold text-center text-dark-green mb-8">Developer</h2>
           <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto flex flex-col md:flex-row items-center">
             <Image
-              src="/images/akash_tiwari.jpg"
+              src="/images/myAvatar.jpeg"
               alt="Akash Tiwari"
               width={200}
               height={200}
@@ -73,13 +73,13 @@ export default function About() {
                 <a href="https://www.linkedin.com/in/akash-tiwari--/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors duration-300">
                   <SiLinkedin className="text-2xl" />
                 </a>
-                <a href="https://github.com/AKASH-CODEtoCRACK" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-600 transition-colors duration-300">
+                <a href="https://github.com/AKASH-CODEtoCRACK/" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-600 transition-colors duration-300">
                   <SiGithub className="text-2xl" />
                 </a>
-                <a href="https://t.me/akash_tiwari" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 transition-colors duration-300">
+                <a href="https://t.me/Tiwari_akash" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 transition-colors duration-300">
                   <SiTelegram className="text-2xl" />
                 </a>
-                <a href="mailto:akash.tiwari@example.com" className="text-red-600 hover:text-red-800 transition-colors duration-300">
+                <a href="mailto:tiwariakash95077@gmail.com" className="text-red-600 hover:text-red-800 transition-colors duration-300">
                   <MdEmail className="text-2xl" />
                 </a>
               </div>
