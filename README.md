@@ -1,3 +1,7 @@
+**PLANTPAL** is a platform develop to identify the plant by simply uploading it's picture or by clicking picture.
+This platfor integrate Google gemini API to process image.
+For more you may visit to the given URL: 
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
