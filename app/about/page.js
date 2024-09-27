@@ -1,7 +1,14 @@
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { FaLeaf, FaSearchengin, FaBookOpen, FaMobileAlt } from 'react-icons/fa';
-import { SiLinkedin, SiGithub, SiTelegram } from 'react-icons/si';
-import { MdEmail } from 'react-icons/md';
+
+const FaLeaf = dynamic(() => import('react-icons/fa').then(mod => mod.FaLeaf));
+const FaSearchengin = dynamic(() => import('react-icons/fa').then(mod => mod.FaSearchengin));
+const FaBookOpen = dynamic(() => import('react-icons/fa').then(mod => mod.FaBookOpen));
+const FaMobileAlt = dynamic(() => import('react-icons/fa').then(mod => mod.FaMobileAlt));
+const SiLinkedin = dynamic(() => import('react-icons/si').then(mod => mod.SiLinkedin));
+const SiGithub = dynamic(() => import('react-icons/si').then(mod => mod.SiGithub));
+const SiTelegram = dynamic(() => import('react-icons/si').then(mod => mod.SiTelegram));
+const MdEmail = dynamic(() => import('react-icons/md').then(mod => mod.MdEmail));
 
 const features = [
   { icon: FaLeaf, title: 'Accurate Plant Identification', description: 'Utilize advanced AI to identify plants from images with high accuracy.' },
@@ -65,6 +72,7 @@ export default function About() {
               width={200}
               height={200}
               className="rounded-full mb-4 md:mb-0 md:mr-6"
+              loading="lazy" // Add lazy loading
             />
             <div className="text-center md:text-left">
               <h3 className="text-2xl font-semibold mb-2 text-dark-green">Akash Tiwari</h3>
